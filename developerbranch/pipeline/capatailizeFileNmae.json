@@ -1,0 +1,77 @@
+{
+	"name": "capatailizeFileNmae",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('FileNames')",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Append variable1",
+							"type": "AppendVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "CapiltalizeFileName",
+								"value": {
+									"value": "@toUpper(item())",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Append variable1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "FinalOutput",
+								"value": {
+									"value": "@variables('CapiltalizeFileName')",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"FileNames": {
+				"type": "Array",
+				"defaultValue": [
+					"a.csv",
+					"b.csv",
+					"c.ssv"
+				]
+			},
+			"CapiltalizeFileName": {
+				"type": "Array"
+			},
+			"FinalOutput": {
+				"type": "Array"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-10-24T22:50:59Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

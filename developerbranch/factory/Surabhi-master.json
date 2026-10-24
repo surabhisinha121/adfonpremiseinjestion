@@ -1,0 +1,15 @@
+{
+	"name": "Surabhi-master",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e263ccf5-f296-43ce-82f1-4aa4b21ec8fd",
+		"tenantId": "4612cab6-7aab-4d09-803a-53a59afe0b3b"
+	}
+}

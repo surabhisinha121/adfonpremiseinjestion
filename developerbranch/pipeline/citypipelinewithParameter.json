@@ -1,0 +1,100 @@
+{
+	"name": "citypipelinewithParameter",
+	"properties": {
+		"activities": [
+			{
+				"name": "If Condition1",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(variables('ListOfCities'),pipeline().parameters.CityToSearch)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Set variable3",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "isCityFound",
+								"value": false
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Set variable2",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "isCityFound",
+								"value": true
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "If Condition1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "CityFoundFinalStatus",
+					"value": {
+						"value": "@variables('isCityFound')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"cityToSearch": {
+				"type": "string",
+				"defaultValue": "Bangluru"
+			}
+		},
+		"variables": {
+			"listOfCities": {
+				"type": "Array",
+				"defaultValue": [
+					"Bangluru",
+					"Mysure",
+					"Manglore"
+				]
+			},
+			"isCityFound": {
+				"type": "Boolean"
+			},
+			"CityFoundFinalStatus": {
+				"type": "Boolean"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-10-24T16:50:42Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
